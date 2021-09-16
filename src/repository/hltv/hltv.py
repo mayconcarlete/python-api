@@ -34,5 +34,6 @@ class HLTV:
     def parse_team_stats_dict(self, team_stats):
         team_stats_dict = {}
         for stats in team_stats:
-            team_stats_dict[stats[0]] = stats[1]
+            team_stats_dict[stats[0].lower().replace(' ', '_')] = stats[1].lower()
         return team_stats_dict
+
