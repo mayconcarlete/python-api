@@ -28,4 +28,11 @@ class HLTV:
         for stats in raw_team_stats:
             parse_stats_to_content = stats.contents
             team_stats.append([parse_stats_to_content[0].text, parse_stats_to_content[1].text])
-        return team_stats
+        print(team_stats)
+        return self.parse_team_stats_dict(team_stats)
+    
+    def parse_team_stats_dict(self, team_stats):
+        team_stats_dict = {}
+        for stats in team_stats:
+            team_stats_dict[stats[0]] = stats[1]
+        return team_stats_dict
