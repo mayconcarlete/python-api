@@ -21,7 +21,17 @@ class HLTV:
         raw_players = self.data.find_all(class_ = 'text-ellipsis bold')
         players = [name.getText() for name in raw_players]
         return players
-
+    def get_players_profile_url(self, url = 'https://www.hltv.org/team/9215/mibr'):
+        raw_players = self.data.find_all(class_ = 'bodyshot-team-bg')
+        raw_profiles = raw_players[0].find_all('a')
+        profiles = []
+        for profile in raw_profiles:
+            href = profile.get('href')
+            prefix_url = 'https://www.hltv.org'
+            url = prefix_url + href
+            profiles.append(url)
+        return profiles
+        
     def get_team_stats(self, url = 'https://www.hltv.org/team/9215/mibr'):
         raw_team_stats = self.data.find_all(class_=['profile-team-stat'])
         team_stats = []
@@ -36,4 +46,3 @@ class HLTV:
         for stats in team_stats:
             team_stats_dict[stats[0].lower().replace(' ', '_')] = stats[1].lower()
         return team_stats_dict
-
