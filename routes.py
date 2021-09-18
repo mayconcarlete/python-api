@@ -2,7 +2,7 @@ from sanic.response import json
 
 
 def status(request):
-    return json({'error':'some error from other file'}, status=401)
+    return json({'error':'some error from other file with auto reload'}, status=401)
 
 def status_params(request, arg1):
     return json({'acertou': arg1})
