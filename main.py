@@ -1,51 +1,14 @@
-# from flask import Flask
+from sanic import Sanic
+from sanic.response import text, json, html
+from routes import load_routes
 
-# app = Flask(__name__)
+app = Sanic('MySanicApp')
+load_routes(app)
 
-# @app.route('/')
-# def hello_world():
-#     return {
-#         'message': 'Hello World'
-#     }
-
-# app.run()
-
-
-from bs4 import BeautifulSoup
-import requests
-
-response = requests.get( 'https://www.hltv.org/team/9215/mibr')
-
-soup = BeautifulSoup(response.text, 'html.parser')
-
-# names = soup.find_all(class_=['bodyshot-team g-grid']).find_all(class_=['col-custom'])
-names = soup.select('div.bodyshot-team.g-grid')
-
-names2 = names[0].find_all(class_=['col-custom'])
-# names2 = names[0].select('href')
-print(names2)
+@app.route("/")
+async def handler(request):
+    return html('<!DOCTYPE html><html lang="en"><meta charset="UTF-8"><div>Hi 😎</div>')
 
 
-# for name in names:
-#     split = name.contents
-#     print(split[0].text, split[1].getText())
-
-
-# print(names)
-# print(names[0].getText()) 
-
-# players = []
-# for name in names:
-#     players.append(name.getText())
-
-# print(players)
-
-# from src.repository.hltv.hltv import HLTV
-
-# hltv = HLTV()
-
-# players = hltv.get_players()
-# print(players)
-
-# team_stats = hltv.get_team_stats()
-# print(team_stats)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=1234, debug=True)
